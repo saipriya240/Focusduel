@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 5% 4%;
+    --foreground: 0 0% 97%;
+    --card: 240 4% 7%;
+    --card-foreground: 0 0% 97%;
+    --popover: 240 5% 6%;
+    --popover-foreground: 0 0% 97%;
+    --primary: 81 100% 62%;
+    --primary-foreground: 240 10% 5%;
+    --secondary: 240 3% 12%;
+    --secondary-foreground: 0 0% 97%;
+    --muted: 240 3% 12%;
+    --muted-foreground: 240 3% 60%;
+    --accent: 240 3% 14%;
+    --accent-foreground: 0 0% 97%;
+    --destructive: 0 78% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 3% 16%;
+    --input: 240 3% 18%;
+    --ring: 81 100% 62%;
+    --chart-1: 81 100% 62%;
+    --chart-2: 0 78% 58%;
+    --chart-3: 190 90% 55%;
+    --chart-4: 45 95% 60%;
+    --chart-5: 280 80% 65%;
+    --radius: 0.9rem;
+    --font-heading: 'Anton', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Anton', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --sidebar-background: 240 5% 5%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 81 100% 62%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 240 3% 12%;
+    --sidebar-accent-foreground: 0 0% 97%;
+    --sidebar-border: 240 3% 14%;
+    --sidebar-ring: 81 100% 62%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "ss01", "cv01";
+  }
+
+  ::selection {
+    background: #B6FF3B;
+    color: #08090A;
+  }
+
+  h1, h2, h3, .display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    line-height: 0.92;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #24262a;
+    border-radius: 999px;
+    border: 3px solid #08090a;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-white/10 bg-white/[0.025];
+  }
+
+  .panel-hover {
+    @apply transition-all duration-300 hover:border-white/20 hover:bg-white/[0.045];
+  }
+
+  .glass {
+    background: rgba(18, 19, 21, 0.72);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  .label-xs {
+    @apply font-mono text-[10px] uppercase tracking-[0.18em] text-white/40;
+  }
+
+  .acid-glow {
+    box-shadow: 0 0 0 1px rgba(182, 255, 59, 0.35), 0 0 40px -8px rgba(182, 255, 59, 0.55);
+  }
+
+  .btn-acid {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-[#B6FF3B] px-5 py-3 font-bold uppercase tracking-wide text-[#08090A] transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.02] px-5 py-3 font-semibold uppercase tracking-wide text-white/80 transition-all duration-200 hover:border-white/35 hover:text-white active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-[#B6FF3B]/60 focus:ring-2 focus:ring-[#B6FF3B]/15;
+  }
+
+  .divider {
+    @apply h-px w-full bg-white/10;
+  }
+}
+
+.grid-bg {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.scan-lines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-floaty { animation: floaty 5s ease-in-out infinite; }
+
+@keyframes rise {
+  from { transform: scaleY(0); opacity: 0.2; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+.animate-rise { animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; transform-origin: bottom; }

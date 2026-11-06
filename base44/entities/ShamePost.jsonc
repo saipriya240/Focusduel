@@ -1,0 +1,87 @@
+{
+  "name": "ShamePost",
+  "type": "object",
+  "properties": {
+    "author_id": {
+      "type": "string"
+    },
+    "author_username": {
+      "type": "string"
+    },
+    "author_avatar": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "goal_text": {
+      "type": "string"
+    },
+    "intensity": {
+      "type": "string",
+      "enum": [
+        "mild",
+        "savage",
+        "extra_spicy"
+      ],
+      "default": "savage"
+    },
+    "ai_generated": {
+      "type": "boolean",
+      "default": true
+    },
+    "like_count": {
+      "type": "number",
+      "default": 0
+    },
+    "comment_count": {
+      "type": "number",
+      "default": 0
+    },
+    "report_count": {
+      "type": "number",
+      "default": 0
+    },
+    "audience_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Friend network allowed to read this post"
+    }
+  },
+  "required": [
+    "author_id",
+    "content"
+  ],
+  "rls": {
+    "create": {
+      "$and": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.author_id": "{{user.id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.audience_ids": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "name": "ActivityFeed",
+  "type": "object",
+  "properties": {
+    "actor_id": {
+      "type": "string"
+    },
+    "actor_username": {
+      "type": "string"
+    },
+    "actor_avatar": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "session",
+        "battle_win",
+        "level_up",
+        "streak",
+        "achievement",
+        "goal"
+      ]
+    },
+    "message": {
+      "type": "string"
+    },
+    "meta": {
+      "type": "string"
+    },
+    "audience_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "User ids allowed to see this entry (actor plus their friends)"
+    }
+  },
+  "required": [
+    "actor_id",
+    "type",
+    "message"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.audience_ids": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "data.actor_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.actor_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

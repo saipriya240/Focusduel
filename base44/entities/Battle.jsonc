@@ -1,0 +1,147 @@
+{
+  "name": "Battle",
+  "type": "object",
+  "properties": {
+    "challenger_id": {
+      "type": "string"
+    },
+    "challenger_username": {
+      "type": "string"
+    },
+    "challenger_avatar": {
+      "type": "string"
+    },
+    "opponent_id": {
+      "type": "string"
+    },
+    "opponent_username": {
+      "type": "string"
+    },
+    "opponent_avatar": {
+      "type": "string"
+    },
+    "invited_by": {
+      "type": "string"
+    },
+    "duration_minutes": {
+      "type": "number"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "deep_work",
+        "study",
+        "building",
+        "creative",
+        "admin"
+      ]
+    },
+    "xp_stake": {
+      "type": "number",
+      "default": 40
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "completed",
+        "declined",
+        "cancelled",
+        "expired"
+      ],
+      "default": "pending"
+    },
+    "starts_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ends_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "challenger_focus_seconds": {
+      "type": "number",
+      "default": 0
+    },
+    "opponent_focus_seconds": {
+      "type": "number",
+      "default": 0
+    },
+    "challenger_paused": {
+      "type": "number",
+      "default": 0
+    },
+    "opponent_paused": {
+      "type": "number",
+      "default": 0
+    },
+    "challenger_last_ping": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "opponent_last_ping": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "challenger_joined": {
+      "type": "boolean",
+      "default": false
+    },
+    "opponent_joined": {
+      "type": "boolean",
+      "default": false
+    },
+    "winner_id": {
+      "type": "string"
+    },
+    "is_draw": {
+      "type": "boolean",
+      "default": false
+    },
+    "rematch_of": {
+      "type": "string"
+    },
+    "settled_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "challenger_id",
+    "opponent_id",
+    "duration_minutes"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.challenger_id": "{{user.id}}"
+        },
+        {
+          "data.opponent_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

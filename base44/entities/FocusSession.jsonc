@@ -1,0 +1,109 @@
+{
+  "name": "FocusSession",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Player who owns this session"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "deep_work",
+        "study",
+        "building",
+        "creative",
+        "admin"
+      ]
+    },
+    "planned_minutes": {
+      "type": "number"
+    },
+    "focus_seconds": {
+      "type": "number",
+      "description": "Server-verified focused time"
+    },
+    "paused_count": {
+      "type": "number",
+      "default": 0
+    },
+    "completed": {
+      "type": "boolean"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "date_key": {
+      "type": "string",
+      "description": "YYYY-MM-DD in the player's timezone"
+    },
+    "hour_key": {
+      "type": "number",
+      "description": "0-23 local hour the session started"
+    },
+    "xp_awarded": {
+      "type": "number",
+      "default": 0
+    },
+    "battle_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "focus_seconds"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$and": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
