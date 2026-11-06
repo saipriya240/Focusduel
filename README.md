@@ -84,3 +84,14 @@ Sai Priya
 📌 Project Status
 
 Personal full-stack application project.
+
+## 📸 Project Screenshots
+
+### Dashboard
+![FocusDuel Dashboard](scrnshits/Screenshot%202026-11-06%20112446.png)
+
+### Focus Room
+![Focus Room](scrnshits/Screenshot%202026-11-06%20112633.png)
+
+### Battles
+![Focus Battles](scrnshits/Screenshot%202026-11-06%20112728.png)
